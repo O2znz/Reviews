@@ -1,0 +1,49 @@
+{
+  "name": "reviews",
+  "description": "reviews module",
+  "author": "Candy Wang",
+  "license": "ISC",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "react-dev": "webpack -w",
+    "start": "nodemon ./server/index.js",
+    "seed-database": "node database/seed.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.19.2",
+    "path": "^0.12.7",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O2znz/reviews.git"
+  },
+  "bugs": {
+    "url": "https://github.com/O2znz/reviews/issues"
+  },
+  "homepage": "https://github.com/O2znz/reviews#readme"
+}
