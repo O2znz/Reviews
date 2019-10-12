@@ -61,14 +61,22 @@ var save = () => {
         }
       };
 
-      Review.findOneAndUpdate(filter, update, {new: true, upsert: true}, function(err, doc) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('Data saved!');
-        }
-      })
+    Review.findOneAndUpdate(filter, update, {new: true, upsert: true}, function(err, doc) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Data saved!');
+      }
+    });
   };
 };
 
 save();
+
+var getAll = (callback) => {
+  Review.find().exec(callback);
+};
+
+module.exports = {
+  getAll: getAll
+};
