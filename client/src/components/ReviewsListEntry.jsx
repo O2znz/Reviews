@@ -2,42 +2,9 @@ import React from 'react';
 
 const ReviewListEntry = (props) => {
   const date = (month, year) => {
-    if (month === '01') {
-      return 'January ' + year;
-    }
-    if (month === '02') {
-      return 'Febuary ' + year;
-    }
-    if (month === '03') {
-      return 'March ' + year;
-    }
-    if (month === '04') {
-      return 'April ' + year;
-    }
-    if (month === '05') {
-      return 'May ' + year;
-    }
-    if (month === '06') {
-      return 'June ' + year;
-    }
-    if (month === '07') {
-      return 'July ' + year;
-    }
-    if (month === '08') {
-      return 'August ' + year;
-    }
-    if (month === '09') {
-      return 'September ' + year;
-    }
-    if (month === '10') {
-      return 'October ' + year;
-    }
-    if (month === '11') {
-      return 'November ' + year;
-    }
-    if (month === '12') {
-      return 'December ' + year;
-    }
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    return months[Number(month) - 1] + ' ' + year;
   };
 
   return (
