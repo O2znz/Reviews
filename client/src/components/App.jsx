@@ -19,7 +19,7 @@ class App extends React.Component {
 
   getAllReviews() {
     axios.get('/reviews')
-      .then(result => this.setState({reviews: result.data}))
+      .then(result => this.setState({reviews: result.data}));
   }
 
   render() {
