@@ -1,10 +1,14 @@
 const express = require('express');
-const db = require('../database/seed.js');
+const mongoose = require('mongoose')
 const path = require('path');
+const bodyParser = require('body-parser');
+const db = require('../database/seed.js');
+
 const app = express();
 const port = 3003;
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(bodyParser.json());
 
 app.get('/reviews', (req, res) => {
   db.getAll((err, result) => {
