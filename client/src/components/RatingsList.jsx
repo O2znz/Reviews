@@ -1,5 +1,12 @@
 import React from 'react';
 import RatingsListEntry from './RatingsListEntry.jsx';
+import styled from 'styled-components';
+
+const RatingsListContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  border-bottom: 5px solid black;
+`;
 
 const RatingsList = (props) => {
   const reviewId = props.reviews.map(review => review.reviewId);
@@ -11,9 +18,11 @@ const RatingsList = (props) => {
   const value = props.reviews.map(review => review.ratings.value);
 
   return (
-    <div className="ratings-category">
-      <RatingsListEntry key={reviewId} checkIn={checkIn} communication={communication} location={location} accuracy={accuracy} cleanliness={cleanliness} value={value} />
-    </div>
+
+    <RatingsListContainer>
+      <RatingsListEntry getRating={props.getRating} key={reviewId} checkIn={checkIn} communication={communication} location={location} accuracy={accuracy} cleanliness={cleanliness} value={value} />
+    </RatingsListContainer>
+
   );
 };
 
