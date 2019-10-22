@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Search from './Search.jsx';
-import RatingsList from './RatingsList.jsx';
+import OverallRating from './OverallRating.jsx';
+import RatingsTable from './RatingsTable.jsx';
 import ProgressBarClass from './ProgressBar.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
@@ -9,70 +10,75 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  max-width: 525px;
+`;
+
+const SpecsContainer = styled.div`
+  max-width: 648px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  ${'' /* can you do vertical align? */}
+`;
+
+const Head = styled.div`
+  display: flex;
+  justify-content: left;
   font-family:Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
   color: #484848;
-`;
-
-const ReviewsContainer = styled.div`
-`;
-
-const Header = styled.div`
   font-size: 24px;
   font-weight: 648;
   padding-top: 2px;
-  padding-bottom: 2px;
+  padding-bottom: 16px;
 `;
 
-const AverageRatingContainer = styled.div`
+const RatingsContainer = styled.div`
   display: flex;
-  ${'' /* justify-content: baseline; */}
-  padding-top: 17px;
-  padding-bottom: 2px;
+  justify-content: space-between;
+  padding-top: 10px;
 `;
 
-const StarAvgContainer = styled.div`
+const SearchContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
-const StarContainer = styled.div`
-  height: 12px;
-  width: 12px;
-`;
-
-const AverageRating = styled.div`
-  font-size: 17px;
-  font-weight: 700;
-  padding-left: 4px;
-`;
-
-const DividerContainer = styled.div`
-  padding-left: 14px;
-  padding-right: 14px;
-`;
-
-const Divider = styled.div`
-  display: -webkit-inline-box;
-  border-left: 1px solid #484848;
-  width: 1px;
-  height: 12px;
-`;
-
-const ReviewsCount = styled.div`
+const ReviewsListContainer = styled.div`
+  max-width: 648px;
+  box-sizing: border-box;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 24px;
 `;
 
-const NumReviews = styled.div`
-  font-size:17px;
-  font-weight: 700;
+const SearchResults = styled.div`
+  max-width: 648px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding-top: 24px;
 `;
 
-const Header2 = styled.div`
-  font-size:17px;
-  font-weight: 100;
-  padding-left: 7.5px;
+const SearchResultText = styled.div`
+
+`;
+
+const ClearSearchResults = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const SearchValue = styled.div`
+
+`;
+
+const Button = styled.button`
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
+  ${'' /* padding-left: 8px; */}
+  cursor: pointer;
 `;
 
 class App extends React.Component {
@@ -81,12 +87,19 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       filteredReviews: [],
+      numReviews: 0,
+      avgCommunication: 0,
+      avgAccuracy: 0,
+      avgLocation: 0,
+      avgCheckIn: 0,
+      avgCleanliness: 0,
+      avgValue: 0,
+      totalAvgRating: 0,
       search: ''
     };
 
     this.getAllReviews = this.getAllReviews.bind(this);
     this.searchValue = this.searchValue.bind(this);
-    this.getRating = this.getRating.bind(this);
   }
 
   componentDidMount() {
@@ -95,19 +108,56 @@ class App extends React.Component {
 
   getAllReviews() {
     axios.get('/reviews')
-      .then(result => this.setState({reviews: result.data}));
+      .then(result => {
+        const reviews = result.data;
+        const numReviews = result.data.length;
+        const checkIn = reviews.map(review => review.ratings.checkIn);
+        const communication = reviews.map(review => review.ratings.communication);
+        const location = reviews.map(review => review.ratings.location);
+        const accuracy = reviews.map(review => review.ratings.accuracy);
+        const cleanliness = reviews.map(review => review.ratings.cleanliness);
+        const value = reviews.map(review => review.ratings.value);
+        const totalCheckIn = checkIn.reduce((acc, cur) => acc + cur, 0);
+        const totalCommunication = communication.reduce((acc, cur) => acc + cur, 0);
+        const totalLocation = location.reduce((acc, cur) => acc + cur, 0);
+        const totalAccuracy = accuracy.reduce((acc, cur) => acc + cur, 0);
+        const totalCleanliness = cleanliness.reduce((acc, cur) => acc + cur, 0);
+        const totalValue = value.reduce((acc, cur) => acc + cur, 0);
+        const totalAvgRating = Number.parseFloat((totalCheckIn + totalCommunication + totalLocation + totalAccuracy + totalCleanliness + totalValue) / (numReviews * 6)).toFixed(2);
+        const avgCategoryRating = (num) => Number.parseFloat(num / numReviews).toFixed(1);
+
+        this.setState({
+          reviews: result.data,
+          numReviews: result.data.length,
+          avgCommunication: avgCategoryRating(totalCommunication),
+          avgAccuracy: avgCategoryRating(totalAccuracy),
+          avgLocation: avgCategoryRating(totalLocation),
+          avgCheckIn: avgCategoryRating(totalCheckIn),
+          avgCleanliness: avgCategoryRating(totalCleanliness),
+          avgValue: avgCategoryRating(totalValue),
+          totalAvgRating: totalAvgRating,
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   searchValue(value) {
-    this.setState({search: value});
-  }
-
-  getRating(rating) {
-    return rating;
+    let reviews = this.state.reviews.slice();
+    var search = reviews.filter (review => review.comment.toLowerCase().includes(value.toLowerCase()));
+    this.setState({filteredReviews: search});
   }
 
   render() {
-    const star = 'M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z';
+    // <SearchResults>
+    //   <SearchResultText>
+    //     40 guests have mentioned “<SearchValue>{this.state.value}</SearchValue>”
+    //   </SearchResultText>
+    //   <ClearSearchResults>
+    //     <Button type="submit" onSubmit={this.setState({filteredReviews: []})}>Back to all reviews</Button>
+    //   </ClearSearchResults>
+    // </SearchResults>
+
+    var displayReviews = this.state.filteredReviews.length ? <ReviewsList reviews={this.state.filteredReviews} /> : <ReviewsList reviews={this.state.reviews} />;
 
     if (!this.state.reviews.length) {
       return (
@@ -116,39 +166,26 @@ class App extends React.Component {
     } else {
       return (
         <Wrapper>
-          <ReviewsContainer>
-            <Header>Reviews</Header>
-            <AverageRatingContainer>
-              <StarAvgContainer>
-                <StarContainer>
-                  <svg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg' fill='#008489' >
-                    <path d={star} />
-                  </svg>
-                </StarContainer>
+          <div>
+            <SpecsContainer>
 
-                <AverageRating>4.24</AverageRating>
-              </StarAvgContainer>
+              <Head>Reviews</Head>
 
-              <DividerContainer>
-                <Divider></Divider>
-              </DividerContainer>
+              <RatingsContainer>
+                <OverallRating totalAvgRating={this.state.totalAvgRating} numReviews={this.state.numReviews} />
+              </RatingsContainer>
+            </SpecsContainer>
 
-              <ReviewsCount>
-                <NumReviews>{this.state.reviews.length}</NumReviews>
+            <RatingsTable ratings={this.state} />
 
-                <Header2>reviews</Header2>
-              </ReviewsCount>
-            </AverageRatingContainer>
+            <SearchContainer>
+              <Search searchValue={this.searchValue} />
+            </SearchContainer>
 
-              {/* <div>
-                <Search reviews={this.state.reviews} searchValue={this.searchValue} />
-              </div> */}
-
-            <div>
-              <RatingsList reviews={this.state.reviews} getRating={this.getRating} />
-              <ReviewsList reviews={this.state.reviews} />
-            </div>
-          </ReviewsContainer>
+            <ReviewsListContainer>
+              {displayReviews}
+            </ReviewsListContainer>
+          </div>
         </Wrapper>
       );
     }
