@@ -74,7 +74,7 @@ const OverallRating = (props) => {
 
       <ReviewsNumber>{props.numReviews}</ReviewsNumber>
 
-      <ReviewText>Reviews</ReviewText>
+      <ReviewText>reviews</ReviewText>
     </OverallRatingContainer>
   );
 };
