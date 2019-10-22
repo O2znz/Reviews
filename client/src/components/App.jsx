@@ -3,7 +3,6 @@ import axios from 'axios';
 import Search from './Search.jsx';
 import OverallRating from './OverallRating.jsx';
 import RatingsTable from './RatingsTable.jsx';
-import ProgressBarClass from './ProgressBar.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 
