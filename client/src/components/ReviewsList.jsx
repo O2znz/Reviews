@@ -7,6 +7,7 @@ const CommentContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin-top: 16px;
 `;
 
 const ReviewsList = (props) => {
