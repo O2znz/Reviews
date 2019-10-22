@@ -51,7 +51,7 @@ const PostDate = styled.div`
 `;
 
 const Comment = styled.div`
-  margin-top: 16px;
+  ${'' /* margin-top: 16px; */}
   word-wrap: break-word;
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
   font-size: 16px;
