@@ -106,7 +106,7 @@ class App extends React.Component {
   }
 
   getAllReviews() {
-    axios.get('/reviews')
+    axios.get('http://localhost:3003/reviews')
       .then(result => {
         const reviews = result.data;
         const numReviews = result.data.length;
