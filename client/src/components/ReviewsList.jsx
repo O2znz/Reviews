@@ -1,6 +1,6 @@
 import React from 'react';
 import ReviewsListEntry from './ReviewsListEntry.jsx';
-import styled from 'styled-components';
+const styled = window.styled;
 
 const CommentContainer = styled.div`
   max-width: 648px;
