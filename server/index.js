@@ -1,5 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('../database/seed.js');
@@ -9,6 +10,7 @@ const port = 3003;
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/reviews', (req, res) => {
   db.getAll((err, result) => {
