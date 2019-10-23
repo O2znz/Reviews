@@ -4,7 +4,8 @@ import Search from './Search.jsx';
 import OverallRating from './OverallRating.jsx';
 import RatingsTable from './RatingsTable.jsx';
 import ReviewsList from './ReviewsList.jsx';
-import styled from 'styled-components';
+
+const styled = window.styled
 
 const Wrapper = styled.div`
   display: flex;
@@ -106,7 +107,7 @@ class App extends React.Component {
   }
 
   getAllReviews() {
-    axios.get('/reviews')
+    axios.get('http://localhost:3003/reviews')
       .then(result => {
         const reviews = result.data;
         const numReviews = result.data.length;

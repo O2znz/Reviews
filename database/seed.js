@@ -63,8 +63,6 @@ var save = () => {
     Review.findOneAndUpdate(filter, update, {new: true, upsert: true}, function(err, doc) {
       if (err) {
         console.log(err);
-      } else {
-        console.log('Data saved!');
       }
     });
   }
