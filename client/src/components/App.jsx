@@ -109,6 +109,7 @@ class App extends React.Component {
     axios.get('/reviews')
       .then(result => {
         const reviews = result.data;
+        console.log(reviews,'this is reviews')
         const numReviews = result.data.length;
         const checkIn = reviews.map(review => review.ratings.checkIn);
         const communication = reviews.map(review => review.ratings.communication);
