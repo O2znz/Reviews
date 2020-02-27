@@ -1,5 +1,5 @@
 import React from 'react';
-const styled = window.styled;
+import styled from 'styled-components';
 
 const RatingsTableContainer = styled.div`
   display: flex;
@@ -17,14 +17,6 @@ const RatingsTableContainer = styled.div`
   border-width: 1px;
   border-style: solid;
 `;
-
-// const RatingsContainerTop = styled.div`
-//   margin-bottom: 24px;
-// `;
-
-// const RatingsContainerBottom = styled.div`
-//   margin-bottom: 8px;
-// `;
 
 const RatingsCategoryContainerLeft = styled.div`
   display: flex;
@@ -67,16 +59,6 @@ const ScoreContainer = styled.div`
   justify-content: flex-end;
   padding-left: 24px;
 `;
-
-// const Divider = styled.div`
-//   margin-top: 24px;
-//   margin-bottom: 24px;
-//   box-sizing: border-box;
-//   display: block;
-//   border-bottom-width: var(--border-rule-border-width, 1px);
-//   border-bottom-color: var(--color-divider, #EBEBEB);
-//   border-bottom-style: solid; */}
-// `;
 
 const Score = styled.div`
   padding-left: 6px;
@@ -125,7 +107,7 @@ class RatingsTable extends React.Component {
             <Text>Check-in</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.cleanliness}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.cleanliness}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgCheckIn}</Score>
             </ScoreContainer>
@@ -135,7 +117,7 @@ class RatingsTable extends React.Component {
             <Text>Accuracy</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.accuracy}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.accuracy}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgAccuracy}</Score>
             </ScoreContainer>
@@ -145,7 +127,7 @@ class RatingsTable extends React.Component {
             <Text>Cleanliness</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.cleanliness}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.cleanliness}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgCleanliness}</Score>
             </ScoreContainer>
@@ -157,7 +139,7 @@ class RatingsTable extends React.Component {
             <Text>Communication</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.communication}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.communication}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgCommunication}</Score>
             </ScoreContainer>
@@ -167,7 +149,7 @@ class RatingsTable extends React.Component {
             <Text>Location</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.location}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.location}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgLocation}</Score>
             </ScoreContainer>
@@ -177,7 +159,7 @@ class RatingsTable extends React.Component {
             <Text>Value</Text>
             <ScoreContainer>
               <RatingBar>
-                <RatingBarFiller style={{width: `${this.state.value}%`}}></RatingBarFiller>
+                <RatingBarFiller style={{ width: `${this.state.value}%` }}></RatingBarFiller>
               </RatingBar>
               <Score>{this.props.ratings.avgValue}</Score>
             </ScoreContainer>
@@ -191,41 +173,3 @@ class RatingsTable extends React.Component {
 }
 
 export default RatingsTable;
-
-
-// USE THIS IF YOU WANT TO INTEGRATE THE NEW UPDATED INTERFACE
-// const RatingsTableContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   box-sizing: border-box;
-//   margin-top: 16px;
-//   margin-bottom: 24px;
-//   padding: 24px 24px 16px 24px;
-//   fill: rgb(255, 255, 255);
-//   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.16);
-//   border-radius: 12px;
-//   border-color: rgb(255, 255, 255);
-//   border-width: 1px;
-//   border-style: solid;
-//   width: 648px;
-// `;
-
-// const RatingsContainerTop = styled.div`
-//   margin-bottom: 24px;
-// `;
-
-// const RatingsContainerBottom = styled.div`
-//   margin-bottom: 8px;
-// `;
-// <RatingsTableContainer>
-//       <RatingsContainerTop>
-
-//       </RatingsContainerTop>
-
-//       <Divider></Divider>
-
-//       <RatingsContainerBottom>
-
-//       </RatingsContainerBottom>
-//     </RatingsTableContainer>
-

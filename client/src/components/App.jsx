@@ -4,7 +4,7 @@ import Search from './Search.jsx';
 import OverallRating from './OverallRating.jsx';
 import RatingsTable from './RatingsTable.jsx';
 import ReviewsList from './ReviewsList.jsx';
-const styled = window.styled;
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +16,6 @@ const SpecsContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  ${'' /* can you do vertical align? */}
 `;
 
 const Head = styled.div`
@@ -76,7 +75,6 @@ const Button = styled.button`
   border: none;
   border-color: transparent;
   background-color: transparent;
-  ${'' /* padding-left: 8px; */}
   cursor: pointer;
 `;
 
@@ -108,15 +106,22 @@ class App extends React.Component {
   getAllReviews() {
     axios.get('/reviews')
       .then(result => {
-        const reviews = result.data;
-        console.log(reviews,'this is reviews')
-        const numReviews = result.data.length;
+        var reviews = result.data;
+        var random = (min, max) => {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+        var numReviews = random(25, 100);
+        reviews = reviews.slice(0, numReviews);
+
         const checkIn = reviews.map(review => review.ratings.checkIn);
         const communication = reviews.map(review => review.ratings.communication);
         const location = reviews.map(review => review.ratings.location);
         const accuracy = reviews.map(review => review.ratings.accuracy);
         const cleanliness = reviews.map(review => review.ratings.cleanliness);
         const value = reviews.map(review => review.ratings.value);
+
         const totalCheckIn = checkIn.reduce((acc, cur) => acc + cur, 0);
         const totalCommunication = communication.reduce((acc, cur) => acc + cur, 0);
         const totalLocation = location.reduce((acc, cur) => acc + cur, 0);
@@ -128,7 +133,7 @@ class App extends React.Component {
 
         this.setState({
           reviews: result.data,
-          numReviews: result.data.length,
+          numReviews: numReviews,
           avgCommunication: avgCategoryRating(totalCommunication),
           avgAccuracy: avgCategoryRating(totalAccuracy),
           avgLocation: avgCategoryRating(totalLocation),
@@ -143,20 +148,11 @@ class App extends React.Component {
 
   searchValue(value) {
     let reviews = this.state.reviews.slice();
-    var search = reviews.filter (review => review.comment.toLowerCase().includes(value.toLowerCase()));
-    this.setState({filteredReviews: search});
+    var search = reviews.filter(review => review.comment.toLowerCase().includes(value.toLowerCase()));
+    this.setState({ filteredReviews: search });
   }
 
   render() {
-    // <SearchResults>
-    //   <SearchResultText>
-    //     40 guests have mentioned “<SearchValue>{this.state.value}</SearchValue>”
-    //   </SearchResultText>
-    //   <ClearSearchResults>
-    //     <Button type="submit" onSubmit={this.setState({filteredReviews: []})}>Back to all reviews</Button>
-    //   </ClearSearchResults>
-    // </SearchResults>
-
     var displayReviews = this.state.filteredReviews.length ? <ReviewsList reviews={this.state.filteredReviews} /> : <ReviewsList reviews={this.state.reviews} />;
 
     if (!this.state.reviews.length) {

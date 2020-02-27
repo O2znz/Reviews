@@ -1,6 +1,6 @@
 # Project Name
 
-> Project description
+> Reviews Microservice for Lodging Reservations Web App
 
 ## Related Projects
 
@@ -34,7 +34,9 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+npm run seed
+npm run build
+npm run start
 ```
 

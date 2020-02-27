@@ -1,5 +1,5 @@
 import React from 'react';
-const styled = window.styled;
+import styled from 'styled-components';
 
 const RatingsCategoryContainer = styled.div`
   display: flex;
@@ -34,14 +34,12 @@ const ScoreContainerLeft = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  ${'' /* padding-left: 70px; */}
 `;
 
 const ScoreContainerRight = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  ${'' /* padding-left: 70px; */}
 `;
 
 const Score = styled.div`
@@ -77,29 +75,9 @@ class RatingsListEntry extends React.Component {
       value: 100
     };
 
-    // this.category = this.category.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.category(checkIn);
-  //   this.category(communication);
-  //   this.category(location);
-  //   this.category(accuracy);
-  //   this.category(cleanliness);
-  //   this.category(value);
-  // }
-
-  // category(name) {
-  //   const total = this.props[name].reduce((acc, cur) => acc + cur, 0);
-
-  //   this.setState({[name]: total / 5 * 100});
-  // }
-
   render() {
-    // console.log(this.state.checkIn, 'this is new check in state')
-    // console.log(this.props.checkIn[0], 'this is checkin prop 0')
-    // console.log(this.props.checkIn)
-    // console.log(this.category(this.props.checkIn), 'THIS IS CATEGORY');
     const checkIn = this.props.checkIn.reduce((acc, cur) => acc + cur, 0);
     const communication = this.props.communication.reduce((acc, cur) => acc + cur, 0);
     const location = this.props.location.reduce((acc, cur) => acc + cur, 0);
@@ -112,7 +90,6 @@ class RatingsListEntry extends React.Component {
     return (
       <RatingsCategoryContainer>
         <RatingsContainerLeft>
-
           <CategoryContainer>
             <CategoryDetails>
               <ScoreContainerLeft>
@@ -121,7 +98,7 @@ class RatingsListEntry extends React.Component {
             </CategoryDetails>
             <CategoryDetails>
               <ScoreContainerRight>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.cleanliness}%`}}></RatingBarFiller></RatingBar>
+                <RatingBar><RatingBarFiller style={{ width: `${this.state.cleanliness}%` }}></RatingBarFiller></RatingBar>
                 <Score>{rating(cleanliness)}</Score>
               </ScoreContainerRight>
             </CategoryDetails>
@@ -135,7 +112,7 @@ class RatingsListEntry extends React.Component {
             </CategoryDetails>
             <CategoryDetails>
               <ScoreContainerRight>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.communication}%`}}></RatingBarFiller></RatingBar>
+                <RatingBar><RatingBarFiller style={{ width: `${this.state.communication}%` }}></RatingBarFiller></RatingBar>
                 <Score>{rating(communication)}</Score>
               </ScoreContainerRight>
             </CategoryDetails>
@@ -144,58 +121,18 @@ class RatingsListEntry extends React.Component {
           <CategoryContainer>
             <CategoryDetails>
               <ScoreContainerLeft>
-                  Check-in
+                Check-in
               </ScoreContainerLeft>
             </CategoryDetails>
             <CategoryDetails>
               <ScoreContainerRight>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.checkIn}%`}}></RatingBarFiller></RatingBar>
+                <RatingBar><RatingBarFiller style={{ width: `${this.state.checkIn}%` }}></RatingBarFiller></RatingBar>
                 <Score>{rating(checkIn)}</Score>
               </ScoreContainerRight>
             </CategoryDetails>
           </CategoryContainer>
-
         </RatingsContainerLeft>
-
-
-{/*
-
-        <RatingsContainerRight>
-
-          <CategoryContainer>
-            <CategoryDetails>Accuracy</CategoryDetails>
-            <CategoryDetails>
-              <ScoreContainer>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.accuracy}%`}}></RatingBarFiller></RatingBar>
-                <Score>{rating(accuracy)}</Score>
-              </ScoreContainer>
-            </CategoryDetails>
-          </CategoryContainer>
-
-          <CategoryContainer>
-            <CategoryDetails>Location</CategoryDetails>
-            <CategoryDetails>
-              <ScoreContainer>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.location}%`}}></RatingBarFiller></RatingBar>
-                <Score>{rating(location)}</Score>
-              </ScoreContainer>
-            </CategoryDetails>
-          </CategoryContainer>
-
-          <CategoryContainer>
-            <CategoryDetails>Value</CategoryDetails>
-            <CategoryDetails>
-              <ScoreContainer>
-                <RatingBar><RatingBarFiller style={{width: `${this.state.value}%`}}></RatingBarFiller></RatingBar>
-                <Score>{rating(value)}</Score>
-              </ScoreContainer>
-            </CategoryDetails>
-          </CategoryContainer>
-
-        </RatingsContainerRight> */}
-
       </RatingsCategoryContainer>
-
     );
   }
 }
