@@ -43,13 +43,13 @@ Features include:
 Screenshots of deployed service:
 
 Preview
-<img width="827" alt="screenshot1" src="/client/dist/reviews-screenshots/reviews-preview.png">
+<img width="100%" alt="screenshot1" src="/client/dist/reviews-screenshots/reviews-preview.png">
 
 Search icon when clicked with result
-<img width="827" alt="screenshot2" src="/client/dist/reviews-screenshots/reviews-searchicon.png">
+<img width="100%" alt="screenshot2" src="/client/dist/reviews-screenshots/reviews-searchicon.png">
 
 Search with enter/return keystroke with result
-<img width="827" alt="screenshot3" src="/client/dist/reviews-screenshots/reviews-enterkeystroke.png">
+<img width="100%" alt="screenshot3" src="/client/dist/reviews-screenshots/reviews-enterkeystroke.png">
 
 ## Related Projects
 
